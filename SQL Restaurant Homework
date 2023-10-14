@@ -1,0 +1,108 @@
+### https://replit.com/@jaimetinattan/sqlrestauranthomework
+
+-- open database
+.open restaurant.db
+
+ --create table1
+create table if not exists customers(
+  customer_id int,
+  name text,
+  city text,
+  age int,
+  career text
+);
+insert into customers values
+  (001,"im","lampang","25","Engineer"),
+  (002,"ohm","bangkok","24","Engineer"),
+  (003,"arm","chaingmai","31","Engineer"),
+  (004,"ann","chonburi","25","Scientist"),
+  (005,"gb","lampang","25","Designer");
+
+
+--list table into the database
+.table
+
+--change how we display data in terminal/shell
+.mode column
+--create table2
+create table if not exists menus(
+  menus_id int,
+  menus_name text,
+  menus_price real,
+  menus_rating real
+);
+insert into menus values
+  (1,"donut",80,4.5),
+  (2,"waffle",60,4.8),
+  (3,"croissant",90,4.6),
+  (4,"cake",100,4),
+  (5,"brownie",75,4);
+--create table3
+create table if not exists drinks(
+  drinks_id int,
+  drinks_menu text,
+  drinks_price real,
+  drinks_rating real
+);
+insert into drinks values
+  (1,"americano",80,4.2),
+  (2,"matcha latte",90,4.6),
+  (3,"cocoa",70,4.4),
+  (4,"tea",60,4),
+  (5,"esspresso",80,4.5);
+--create table 4
+create table if not exists invoice(
+  invoice_date date,
+  menus_id int,
+  drinks_id int,
+  customer_id int,
+  total_spending real
+);
+insert into invoice values
+  ("1-1-2020",1,2,001,160),
+  ("1-2-2021",2,3,002,180),
+  ("2-3-2021",4,5,003,190),
+  ("3-4-2022",5,1,004,200),
+  ("4-5-2023",4,2,005,140),
+  ("5-6-2022",3,2,002,150),
+  ("6-7-2020",5,1,003,160),
+  ("7-8-2023",3,4,001,200),
+  ("8-9-2022",2,1,004,130),
+  ("9-10-2021",3,5,005,170),
+  ("10-11-2022",5,4,003,165),
+  ("11-12-2023",2,2,002,180);
+
+select * from customers;
+select * from menus;
+select * from drinks;
+select * from invoice;
+
+--find the most popular menus/agg in 2020
+select 
+  sum(menus_id=1) as donut,
+  sum(menus_id=2) as waffle,
+  sum(menus_id=3) as croissant,
+  sum(menus_id=4) as cake,
+  sum(menus_id=5) as brownie,
+  sum(total_spending) as total
+from invoice;
+
+select 
+  sum(drinks_id=1) as americano,
+  sum(drinks_id=2) as matchalatte,
+  sum(drinks_id=3) as cocoa,
+  sum(drinks_id=4) as tea,
+  sum(drinks_id=5) as esspresso,
+  sum(total_spending) as total
+from invoice;
+
+--subquery/with/join
+select name,age from(
+  (select * from customers)
+)
+where career = 'Engineer';  
+
+
+select name,age,career from customers
+join invoice
+  on customers.customer_id = invoice.customer_id;
