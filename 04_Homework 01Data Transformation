@@ -1,0 +1,79 @@
+## Homework Data Transform 01 - R Studio Cloud
+
+library(nycflights13)
+library(dplyr)
+View(flights)
+
+## review data frame structure
+glimpse(flights)
+
+## filter data
+flights %>%
+  group_by(month) %>%
+  summarise(n=n())
+
+flights %>%
+  count(month)
+
+## Feb 2013, carrier most flights?
+flights %>%
+  filter (month==2) %>%
+  count(carrier) %>%
+  arrange(-n) %>%    ## order by column n
+  head(5) %>%
+  left_join(airlines, by ="carrier")
+
+## HW01 - 5 questions ask about flights dataset
+## 1.which carrier have most distance fly?
+## 2.which carrier have most delay time fly?
+## 3.which month have the most flights in 2013?
+## 4. top 5 airline with most flights in august?
+## 5. which airline have the most distance flights in 2013?
+
+## 1.which carrier have most distance fly in jan?
+flights %>%
+  filter(month==1)%>%
+  group_by(carrier) %>%
+  summarize(
+    total_distance = sum(distance),
+    avg_distance = mean(distance)
+  ) %>%
+  arrange(desc(total_distance)) %>%
+  head(5)
+
+## 2.which carrier have most delay time fly?
+flights %>%
+  group_by(carrier) %>%
+  summarize(
+    n_flights = n(),
+    on_time_rate = mean(arr_delay == 0),
+    avg_delay_time = mean(arr_delay[arr_delay != 0])
+  ) %>%
+  arrange(desc(avg_delay_time)) %>%
+  head(5)
+
+## 3.which month have the most flights in 2013?
+flights %>%
+  group_by(month) %>%
+  summarize(n_flights = n()) %>%
+  arrange(desc(n_flights))%>%
+  head(5)
+
+## 4. top 5 airline with most flights in august?
+flights %>%
+  filter(month == 8) %>%
+  group_by(carrier) %>%
+  summarize(n_flights = n()) %>%
+  arrange(desc(n_flights)) %>%
+  head(5)
+
+## 5. which airline have the most distance flights in 2013?
+flights %>%
+  group_by(carrier) %>%
+  summarize(
+    total_distance = sum(distance),
+    avg_distance = mean(distance)
+  ) %>%
+  arrange(desc(total_distance)) %>%
+  head(5)
+```
