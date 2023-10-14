@@ -1,0 +1,41 @@
+# Data Transformation in R Studio Cloud
+
+# Homework 02
+
+```r
+## HW02
+## connect to SQL sever (postgresql)
+
+library(RPostgreSQL)
+library(tidyverse)
+
+## 5432 is the port for PostgreSQL
+con <- dbConnect(PostgreSQL(),
+                 host = "arjuna.db.elephantsql.com",
+                 port = 5432,
+                 user = "bdvpgprz",
+                 password = "rW_cFRTsjtdc7dU-O6LqBtkK9qt2yeQW",
+                 dbname = "bdvpgprz")
+dbListTables(con)
+
+pizza_menu <- data.frame(
+  id =1:3,
+  name = c("Hawaiian","Hotdog","Cheese")
+)
+
+dbWriteTable(con,"pizza_menu", pizza_menu)
+
+## get data
+dbGetQuery(con,"select * from pizza_menu")
+
+## create another table
+customers <- data.frame(id=1:2, name = c("im","arm"))
+dbWriteTable(con,"customers", customers)
+
+dbListTables(con)
+dbRemoveTable(con,"pizza_menu")
+dbRemoveTable(con,"customers")
+
+# close connection
+dbDisconnect(con)
+```
