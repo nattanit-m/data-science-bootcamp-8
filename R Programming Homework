@@ -1,0 +1,59 @@
+###https://replit.com/@jaimetinattan/pao-ying-chub#main.r
+rps_game = function (){
+weapons = c("R","P","S")
+print("Welcome to the rock-paper-scissors game.")
+ans = " "
+bot_ans = " "
+win = 0 ; tie = 0 ; loss = 0
+round = 1
+
+print("Welcome to the rock-paper-scissors game.")
+print("Rules :")
+print("Please select what you want.")
+print("Rock is R , Paper is P , Scissors is S ")
+print("If you want to exit, type the word 'quit' ")
+print("If you're ready, let's go play.")
+
+while(TRUE){
+
+  print(paste("Round",round))
+  print("Pls choose your answer :")
+  ans = readLines("stdin",n=1)
+
+  if(tolower(ans) == "quit"){break}
+  
+  while(!toupper(ans) %in% weapons){
+    print("Pls choose your answer again:")
+    print("Rock is R , Paper is P , Scissors is S ")
+    ans = readLines("stdin",n=1)
+  }
+
+  bot_ans = sample(weapons,1)
+  print(paste("Your weapon is",ans))
+  print(paste("Bot weapon is",bot_ans))
+  
+  if(ans == "R" & bot_ans == "S"){
+     print("You Win !!") 
+     win = win + 1
+  }else if (ans == "P" & bot_ans == "R"){
+     print("You Win !!") 
+     win = win + 1
+  }else if (ans == "S" & bot_ans == "P"){
+     print("You Win !!") 
+     win = win + 1
+  }else if (ans == bot_ans){
+     print("You Draw") 
+     tie = tie + 1
+  }else {
+     print("You Loss")
+     loss = loss + 1
+  }
+  
+  round = round+1
+  
+}
+print(paste("Score Win :",win))  
+print(paste("Score Tie :",tie))  
+print(paste("Score Loss :",loss))
+}
+rps_game()
