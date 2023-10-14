@@ -1,0 +1,49 @@
+### https://replit.com/@jaimetinattan/homeworkrpizzaorder#main.r
+chat_bot_piazza = function(){
+user_pizza = ""
+size_pizza = ""
+price = 0
+print("Welcome to Pizza Restaurant")
+
+print("We have the following menus.")
+menu_list = c("Chicken Trio" , "Super Deluxe","Tom Yum Kung")
+for(i in 1:3){
+  print(paste(i,menu_list[i]))
+}
+
+print("Please select the menu.")
+user_pizza = readLines("stdin",n=1)
+while(user_pizza != "1" & user_pizza != "2" & user_pizza != "3"){
+  print("Please select the displayed menu.")
+  user_pizza = readLines("stdin",n=1)
+}
+
+print("Please select the size of the pizza, M L")
+size_pizza = readLines("stdin",n=1)
+
+if(user_pizza == "1" & toupper(size_pizza) == "M"){
+  print(paste("Price pizza size M is",379))
+  price = 379
+}else if(user_pizza == "1" & toupper(size_pizza) == "L"){
+  print(paste("Price pizza size L is",499))
+  price = 499
+}else if(user_pizza == "2" & toupper(size_pizza) == "M"){
+  print(paste("Price pizza size M is",439))
+  price = 439
+}else if(user_pizza == "2" & toupper(size_pizza) == "L"){
+  print(paste("Price pizza size L is",559))
+  price = 559
+}else if(user_pizza == "3" & toupper(size_pizza) == "M"){
+  print(paste("Price pizza size M is",439))
+  price = 439
+}else {
+  print(paste("Price pizza size L is",559))
+  price = 559
+}
+
+print("Your details order :")
+print(paste(menu_list[as.numeric(user_pizza)],",","Price :",price))
+print("Thank you for using the service")
+}
+
+chat_bot_piazza()
